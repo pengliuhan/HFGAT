@@ -1,0 +1,46 @@
+train_dataset:
+  type: Vimeo90KDataset
+  root: /data2/Data/MFQEv2_dataset/train_108/
+  gt_folder: raw/
+  lq_folder: HM16.5_LDP/QP42/
+  gt_path: /data2/Data/MFQEv2_dataset/train_rgb_gt_qp42_LDP.lmdb
+  lq_path: /data2/Data/MFQEv2_dataset/train_rgb_lq_qp42_LDP.lmdb
+  meta_info_fp: meta_info.txt
+  random_seed: 7
+  radius: 3
+  gt_size: 64
+  use_flip: False
+  use_rot: False
+  random_reverse: False
+  repeat: 1
+  batch_size: 32
+  num_worker_per_gpu: 4
+
+data_norm:
+  lq: {sub: [0.5], div: [0.5]}
+  gt: {sub: [0.5], div: [0.5]}
+
+model:
+  name: network
+  args:
+    in_nc: 21
+
+optimizer:
+  name: adam
+  args:
+    lr: !!float 1e-4
+
+multi_step_lr:
+  milestones: [400, 800, 900, 980]
+  gamma: 0.5
+
+loss_weight:
+  pixel: !!float 1
+  lpips: !!float 0.0125
+
+epoch_max: 400
+epoch_val: 2
+epoch_save: 5
+
+#resume: ~
+

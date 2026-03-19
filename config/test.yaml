@@ -1,0 +1,40 @@
+test_dataset:
+  dataset:
+    name: paired-image-folders
+    raw: /data2/Data/MFQEv2_dataset/test_18/raw_RGB/
+    compress: /data2/Data/MFQEv2_dataset/test_18/HM16.5_LDP/QP42_RGB/
+    args:
+      gr_path: /data2/Data/MFQEv2_dataset/test_18/raw_RGB/BasketballPass_416x240_500
+      lq_path: /data2/Data/MFQEv2_dataset/test_18/HM16.5_LDP/QP42_RGB/BasketballPass_416x240_500
+
+  wrapper:
+    name: video-implicit-paired-fast
+    args: {}
+  batch_size: 1
+eval_type: benchmark-2
+eval_bsize: 300000
+
+data_norm:
+  lq: {sub: [0.5], div: [0.5]}
+  gt: {sub: [0.5], div: [0.5]}
+
+
+#BasketballPass_416x240_500
+#BlowingBubbles_416x240_500
+#BQSquare_416x240_600
+#RaceHorses_416x240_300
+#BasketballDrill_832x480_500
+#BQMall_832x480_600
+#PartyScene_832x480_500
+#RaceHorses_832x480_300
+#KristenAndSara_1280x720_600
+#Johnny_1280x720_600
+#FourPeople_1280x720_600
+#BasketballDrive_1920x1080_500
+#BQTerrace_1920x1080_600
+#Cactus_1920x1080_500
+#Kimono_1920x1080_240
+#ParkScene_1920x1080_240
+#Traffic_2560x1600_150
+#PeopleOnStreet_2560x1600_150
+
