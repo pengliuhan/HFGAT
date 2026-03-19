@@ -8,7 +8,7 @@ train_dataset:
   meta_info_fp: meta_info.txt
   random_seed: 7
   radius: 3
-  gt_size: 64
+  gt_size: 128
   use_flip: False
   use_rot: False
   random_reverse: False
