@@ -1,0 +1,12 @@
+还需要安装ffmpeg
+
+pyyaml
+tqdm
+imageio
+tensorboardX
+timm
+lpips
+opencv-python
+lmdb==1.5.1
+einops
+thop
