@@ -35,9 +35,38 @@ We utilize a Tesla V100-SXM2-16GB GPU for training.
 python train.py
 ```
 
-## 3. Test         
+## 3. Test
+1. Convert YUV format video to RGB format
+```bash
+def yuv_to_rgb(gt_dir, lq_dir):
+    rgb_gt_dir = gt_dir.rstrip('/') + "_test_RGB/"
+    rgb_lq_dir = lq_dir.rstrip('/') + "_test_RGB/"
 
-We utilize a Tesla V100-SXM2-16GB GPU for testing.
+    os.makedirs(rgb_gt_dir, exist_ok=True)
+    os.makedirs(rgb_lq_dir, exist_ok=True)
+
+    yuv_list = sorted([os.path.splitext(f)[0] for f in os.listdir(gt_dir) if f.endswith('.yuv')])
+    for name in yuv_list:
+        os.makedirs(os.path.join(rgb_gt_dir, name), exist_ok=True)
+        os.makedirs(os.path.join(rgb_lq_dir, name), exist_ok=True)
+
+        _, wxh, nfs = name.split('_')
+        w, h = int(wxh.split('x')[0]), int(wxh.split('x')[1])
+
+        cmd_gt = 'ffmpeg -s '+str(w)+'x'+str(h)+' -i '+gt_dir+name+'.yuv '+rgb_gt_dir+name+'/%4d.png'
+        cmd_lq = 'ffmpeg -s '+str(w)+'x'+str(h)+' -i '+lq_dir+name+'.yuv '+rgb_lq_dir+name+'/%4d.png'
+
+        exit_code_gt = os.system(cmd_gt)
+        exit_code_lq = os.system(cmd_lq)
+        if exit_code_gt != 0:
+            print(f"GT: {exit_code_gt}")
+        if exit_code_lq != 0:
+            print(f"LQ: {exit_code_lq}")
+
+    return rgb_gt_dir, rgb_lq_dir
+```
+
+2. We utilize a Tesla V100-SXM2-16GB GPU for testing.
 ```bash
 python test.py
 ```
@@ -61,3 +90,5 @@ If you find this project is useful for your research, please cite:
 
 ## Acknowledgements
 This work is based on [STDF-Pytoch](https://github.com/RyanXingQL/STDF-PyTorch), [Uformer](https://github.com/ZhendongWang6/Uformer) and [LINF](https://github.com/JNNNNYao/LINF).
+
+
