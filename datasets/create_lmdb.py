@@ -31,8 +31,8 @@ yml_path = args.opt_path
 
 
 def yuv_to_rgb(gt_dir, lq_dir):
-    rgb_gt_dir = gt_dir.rstrip('/') + "_test_RGB/"
-    rgb_lq_dir = lq_dir.rstrip('/') + "_test_RGB/"
+    rgb_gt_dir = gt_dir.rstrip('/') + "_RGB/"
+    rgb_lq_dir = lq_dir.rstrip('/') + "_RGB/"
 
     os.makedirs(rgb_gt_dir, exist_ok=True)
     os.makedirs(rgb_lq_dir, exist_ok=True)
